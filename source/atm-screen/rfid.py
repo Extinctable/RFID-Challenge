@@ -85,3 +85,49 @@ def read_uid(connection):
     else:
         print(f"Failed to read UID. SW1: {sw1}, SW2: {sw2}")
         return False
+
+
+# Added methods to read data from the card
+def read_first_name_from_card(c):
+    first_name_data = toASCIIString(read_block(c, 10, 40)).strip('.')
+    first_name = first_name_data.split("FIRSTNAME:")[1].capitalize()
+    return first_name
+
+def read_last_name_from_card(c):
+    last_name_data = toASCIIString(read_block(c, 10, 41)).strip('.')
+    last_name = last_name_data.split("LASTNAME:")[1].capitalize()
+    return last_name
+
+def read_balance_from_card(c):
+    balance_data = toASCIIString(read_block(c, 10, 42)).strip('.')
+    balance = balance_data.split("BALANCE:")[1]
+    balance_dollars = int(balance.split('$')[0])
+    balance_cents = int(balance.split('$')[1].split('c')[0])
+    total_balance = (balance_dollars*100 + balance_cents) / 100
+    return total_balance # float
+
+
+def read_postcode_from_card(c):
+    postcode_data = toASCIIString(read_block(c, 11, 44)).strip('.')
+    postcode = postcode_data.split("POSTCODE:")[1]
+    return postcode[:3] + " " + postcode[3:]
+
+def read_pin_from_card(c):
+    pincode_data = toASCIIString(read_block(c, 11, 45)).strip('.')
+    pincode = pincode_data.split("PINCODE:")[1]
+    return pincode
+
+def read_birthdate_from_card(c):
+    birthdate_data = toASCIIString(read_block(c, 11, 46)).strip('.')
+    birthdate = birthdate_data.split("BIRTH:")[1]
+    return birthdate
+
+def read_uid_from_card(c):
+    uid = read_uid(c)
+    if uid:
+        return toHexString(uid)
+    else:
+        return "ERROR"
+
+def remove_balance_from_card(c, value):
+    return ""
