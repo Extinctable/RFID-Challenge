@@ -1,8 +1,8 @@
 # FLAGS
 
-- `ATHACKCTF{y0ur1stflagGoesHere}` 
-- `ATHACKCTF{y0ur2ndflagGoesHere}`
-- `...`
+- `ATHACKCTF{}` \* User Pin code, which is randomized (XXXX; 0-9) *\
+- `ATHACKCTF{Sp00fingUIDz}`
+- `ATHACKCTF{printf('$money$');}`
 
 ## IMPORTANT
 Unless it's impossible or technically difficult, flags should follow the format `ATHACKCTF{__________}` 
